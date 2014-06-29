@@ -1,0 +1,29 @@
+﻿@model List<InstaMovieBeta.Models.SearchResponseJsonTypes.Movie>
+
+@{
+    ViewBag.Title = "Search";
+}
+
+<h2>Search</h2>
+
+<div>
+    @foreach (var movie in Model)
+    {
+        <h4>@movie.Title</h4>
+        <hr />
+        <dl class="dl-horizontal"></dl>
+        if (movie.Images != null && movie.Images.Length > 0)
+        {
+            InstaMovieBeta.Models.SearchResponseJsonTypes.Image preferredImage = InstaMovieBeta.Utils.Utility.GetBiggestImage(movie.Images);
+            <img src='@preferredImage.Url' alt="Image" width='@preferredImage.Width' /><br />
+        }
+        else
+        {
+            <label>NO IMAGE AVAILABLE</label>
+        }
+    }
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { /* id = Model.PrimaryKey */ }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>
