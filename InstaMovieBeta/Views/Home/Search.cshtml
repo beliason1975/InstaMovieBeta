@@ -1,4 +1,4 @@
-﻿@model List<InstaMovieBeta.Models.SearchResponseJsonTypes.Movie>
+﻿@model InstaMovieBeta.Models.Rovi.MovieInfo
 
 @{
     ViewBag.Title = "Search";
@@ -7,7 +7,7 @@
 <h2>Search</h2>
 
 <div>
-    @foreach (var movie in Model)
+    @*@foreach (var movie in Model)
     {
         <h4>@movie.Title</h4>
         <hr />
@@ -21,7 +21,7 @@
         {
             <label>NO IMAGE AVAILABLE</label>
         }
-    }
+    }*@
 </div>
 <p>
     @Html.ActionLink("Edit", "Edit", new { /* id = Model.PrimaryKey */ }) |
