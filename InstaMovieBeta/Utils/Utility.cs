@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Linq;
 using System.Text;
+using InstaMovieBeta.Models.Rovi;
 
 namespace InstaMovieBeta.Utils
 {
@@ -36,6 +37,36 @@ namespace InstaMovieBeta.Utils
                 result.Append(bytes[i].ToString(upperCase ? "X2" : "x2"));
 
             return result.ToString();
+        }
+
+        public static Image GetClosestMatchImage(Image[] images, int desiredWidth)
+        {
+            Image currentMatch = images[0];
+            foreach (var img in images)
+            {
+                if (img.Width == desiredWidth)
+                {
+                    return img;
+                }
+                else if (img.Width < desiredWidth && img.Width > currentMatch.Width)
+                {
+                    currentMatch = img;
+                }
+            }
+            return currentMatch;
+        }
+
+        public static Image GetBiggestImage(Image[] images)
+        {
+            Image currentMatch = images[0];
+            foreach (var img in images)
+            {
+                if (img.Width > currentMatch.Width)
+                {
+                    currentMatch = img;
+                }
+            }
+            return currentMatch;
         }
     }
 }

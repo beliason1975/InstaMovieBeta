@@ -3,12 +3,12 @@
 }
 
 <div class="jumbotron">
-    <h2>@Html.ActionLink("Movies near me", "Index", "Movies")</h2>
-    
-    @using (Html.BeginForm())
+    @using (Html.BeginForm("Search", "Home"))
     {
-        @Html.TextBox("Title")
+        @Html.TextBox("searchTerm")
         <input type="submit" value="Find" />
+        @Html.Hidden("cosmoid")
+        @Html.Hidden("autocompleteResults")
     }
           
     <p class="lead">ASP.NET is a free web framework for building great Web sites and Web applications using HTML, CSS and JavaScript.</p>
@@ -39,47 +39,42 @@
 
 <script type="text/javascript">
     $(document).ready(function () {
-        var data = ["Boston Celtics", "Chicago Bulls", "Miami Heat", "Orlando Magic", "Atlanta Hawks", "Philadelphia Sixers", "New York Knicks", "Indiana Pacers", "Charlotte Bobcats", "Milwaukee Bucks", "Detroit Pistons", "New Jersey Nets", "Toronto Raptors", "Washington Wizards", "Cleveland Cavaliers"];
-        $("#Title").autocomplete({
+        $("#searchTerm").autocomplete({
             source: function (request, response) {
                 $.ajax({
-                    url: '@Url.Action("GetResults", "Home")',
+                    url: '@Url.Action("Autocomplete", "Home")',
                     data: { input: request.term },
                     dataType: 'json',
                     type: 'GET',
                     success: function (data) {
-                        alert(data);
-                        //response($.map(data, function (item) {
-                        //    return {
-                        //        label: item.Description,
-                        //        value: item.Id
-                        //    }
-                        //}
-                        //));
+                        var tmp = "";
+                        $.each(data, function (index, value) {
+                            //alert(index + ":" + value.DisplayTitle);
+                            tmp += value.DisplayTitle + "|";
+                        });
+                        var titles = tmp.substring(0, tmp.length);
+                        $("#autocompleteResults").val(titles);
+                        response($.map(data, function (item) {
+                            return {
+                                label: item.DisplayTitle,
+                                value: item.CosmoId
+                            }
+                        }
+                        ));
                     }
                 })
             },
             select: function (event, ui) {
-                //alert(ui.item.label);
-                $('#Title').val(ui.item.label);
-                //$('#Id').val(ui.item.value);
+                $('#searchTerm').val(ui.item.label);
+                $('#cosmoid').val(ui.item.value);
+                return false;
+            },
+            focus: function (event, ui) {
+                $('#searchTerm').val(ui.item.label);
+                $('#cosmoid').val(ui.item.value);
                 return false;
             },
             minLength: 1
         });
     });
-
-    //$(function () {
-    //    alert('Ready');
-    //    $("#Title").autocomplete({
-    //        //source: '<%: Url.Action("List") %>',
-    //        source: function (request, response) {
-    //            alert('source');
-    //        },
-    //        select: function (event, ui) {
-    //            //$("#movieID").val(ui.item.id);
-    //            alert('select');
-    //        }
-    //    });
-    //});
 </script>
