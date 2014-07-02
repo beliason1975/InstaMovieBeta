@@ -1,0 +1,35 @@
+﻿@model InstaMovieBeta.Models.SearchResponse
+
+@{
+    ViewBag.Title = "Search";
+}
+
+<h2>Search</h2>
+
+<div>
+    <h4>Results</h4>
+    <hr />
+    <dl class="dl-horizontal">
+    </dl>
+    <div>
+        @foreach (InstaMovieBeta.SearchResponseJsonTypes.Result result in Model.Details.Results)
+        {
+            if (result.Movie != null && result.Movie.Images != null)
+            {
+                <div>@result.Movie.Title</div>
+                foreach (var image in result.Movie.Images)
+                {
+                    if (image.Height == 60)
+                    {
+                        <img src='@image.Url' alt="Image" width='@image.Width' /><br />
+                        break;
+                    }
+                }
+            }
+        }
+    </div>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { /* id = Model.PrimaryKey */ }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

@@ -5,6 +5,9 @@ using System;
 using System.Collections.Generic;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
+using InstaMovieBeta.Models.Rovi.CommonJsonTypes;
+using InstaMovieBeta.Models.Rovi.MovieInfoJsonTypes;
+
 
 namespace InstaMovieBeta.Models.Rovi
 {

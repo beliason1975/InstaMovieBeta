@@ -2,7 +2,11 @@
 // http://www.xamasoft.com/json-class-generator
 
 using System;
+using System.Collections.Generic;
 using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
+using InstaMovieBeta.Models.Rovi.SearchResponseJsonTypes;
+
 
 namespace InstaMovieBeta.Models.Rovi
 {
@@ -11,7 +15,7 @@ namespace InstaMovieBeta.Models.Rovi
     {
 
         [JsonProperty("searchResponse")]
-        public SearchDetails Details { get; set; }
+        public SearchResponse2 Response { get; set; }
     }
 
 }

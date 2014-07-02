@@ -8,7 +8,6 @@
         @Html.TextBox("searchTerm")
         <input type="submit" value="Find" />
         @Html.Hidden("cosmoid")
-        @Html.Hidden("autocompleteResults")
     }
           
     <p class="lead">ASP.NET is a free web framework for building great Web sites and Web applications using HTML, CSS and JavaScript.</p>
@@ -39,6 +38,9 @@
 
 <script type="text/javascript">
     $(document).ready(function () {
+        $('#searchTerm').val("");
+        $('#cosmoid').val("");
+
         $("#searchTerm").autocomplete({
             source: function (request, response) {
                 $.ajax({
@@ -47,13 +49,13 @@
                     dataType: 'json',
                     type: 'GET',
                     success: function (data) {
-                        var tmp = "";
-                        $.each(data, function (index, value) {
-                            //alert(index + ":" + value.DisplayTitle);
-                            tmp += value.DisplayTitle + "|";
-                        });
-                        var titles = tmp.substring(0, tmp.length);
-                        $("#autocompleteResults").val(titles);
+                        //var tmp = "";
+                        //$.each(data, function (index, value) {
+                        //    //alert(index + ":" + value.DisplayTitle);
+                        //    tmp += value.DisplayTitle + "|";
+                        //});
+                        //var titles = tmp.substring(0, tmp.length-1);
+                        //$("#autocompleteResults").val(titles);
                         response($.map(data, function (item) {
                             return {
                                 label: item.DisplayTitle,
@@ -71,7 +73,7 @@
             },
             focus: function (event, ui) {
                 $('#searchTerm').val(ui.item.label);
-                $('#cosmoid').val(ui.item.value);
+                $('#cosmoid').val("");
                 return false;
             },
             minLength: 1

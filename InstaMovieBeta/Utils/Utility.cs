@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Linq;
 using System.Text;
-using InstaMovieBeta.Models.Rovi;
+using InstaMovieBeta.Models.Rovi.CommonJsonTypes;
 
 namespace InstaMovieBeta.Utils
 {

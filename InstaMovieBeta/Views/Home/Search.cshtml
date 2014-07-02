@@ -1,4 +1,4 @@
-﻿@model InstaMovieBeta.Models.Rovi.MovieInfo
+﻿@model IEnumerable<InstaMovieBeta.Models.Rovi.SearchResponseJsonTypes.Result>
 
 @{
     ViewBag.Title = "Search";
@@ -6,24 +6,28 @@
 
 <h2>Search</h2>
 
-<div>
-    @*@foreach (var movie in Model)
-    {
-        <h4>@movie.Title</h4>
-        <hr />
-        <dl class="dl-horizontal"></dl>
-        if (movie.Images != null && movie.Images.Length > 0)
-        {
-            InstaMovieBeta.Models.SearchResponseJsonTypes.Image preferredImage = InstaMovieBeta.Utils.Utility.GetBiggestImage(movie.Images);
-            <img src='@preferredImage.Url' alt="Image" width='@preferredImage.Width' /><br />
-        }
-        else
-        {
-            <label>NO IMAGE AVAILABLE</label>
-        }
-    }*@
-</div>
 <p>
-    @Html.ActionLink("Edit", "Edit", new { /* id = Model.PrimaryKey */ }) |
-    @Html.ActionLink("Back to List", "Index")
+    @Html.ActionLink("Create New", "Create")
 </p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Type)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.Type)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.Id }) |
+            @Html.ActionLink("Details", "Details", new { id=item.Id }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.Id })
+        </td>
+    </tr>
+}
+
+</table>
